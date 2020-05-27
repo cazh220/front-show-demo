@@ -1,0 +1,14 @@
+{
+    "code": 200,
+    "msg": "ok",
+    "data": {
+        "good_category": [
+            "2",
+            "3"
+        ],
+        "img": [
+            "http://laravel2.cc/storage/avatars/202005/Y6Um9UpPJLJkP830gD9to51N0DlZIkmgrO8pRZmy.png",
+            "http://laravel2.cc/storage/avatars/202005/NX38xJV4xQvBygG0JQScxKy9sUXTnTIb07LpKAD5.png"
+        ]
+    }
+}

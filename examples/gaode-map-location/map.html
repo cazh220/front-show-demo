@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 适配移动端 -->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>给多个点添加信息窗体</title>
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript"
+        src="https://webapi.amap.com/maps?v=1.4.15&key=c16cf2cd27a2513203e9bab014951646"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script src="//webapi.amap.com/ui/1.1/main.js?v=1.1.1"></script>
+</head>
+<style>
+    .a_detail {
+        float: right;
+    }
+
+    .hr_class {
+        background-color: #ccc;
+        height: 1px;
+        border: none;
+    }
+
+    .tip {
+        font-size: 14px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .form_title,
+    .form_content {
+        line-height: 25px;
+    }
+
+    #panel {
+        width: auto;
+        position: absolute;
+        top: 90%;
+        right: 100px;
+        background-color: #FFF;
+        height: 60px;
+    }
+
+    li {
+        float: left;
+        list-style: none;
+        margin-right: 30px;
+    }
+</style>
+
+<body>
+    <div id="container"></div>
+    <div id="panel">
+        <ul id="my-list">
+            <ul>
+                <li><i class="fa fa-map-marker fa-2x" style="color: #38AADD;"></i>回收点</li>
+                <li><i class="fa fa-map-marker fa-2x" style="color: #72B026;"></i>打包站</li>
+                <li><i class="fa fa-map-marker fa-2x" style="color: #D63E2A;"></i>初加工企业</li>
+                <li><i class="fa fa-map-marker fa-2x" style="color: #A13336;"></i>深加工企业</li>
+                <li><i class="fa fa-map-marker fa-2x" style="color: #5A386A;"></i>再利用企业</li>
+            </ul>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        //初始化地图对象，加载地图
+        var map = new AMap.Map("container", { resizeEnable: true });
+        var lnglats = [
+            [121.661367, 31.140062],
+            [121.51936, 31.3003],
+            [121.21753, 31.094173],
+            [121.349022, 31.194796],
+            [121.49974, 31.239853]
+        ];
+        var color = ['blue', 'green', 'red', 'darkred', 'purple']
+        var type = ['回收点', '打包站', '初加工企业', '深加工企业', '再利用企业']
+
+        //缩放工具条
+        AMap.plugin([
+            'AMap.ToolBar',
+        ], function () {
+            // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+            map.addControl(new AMap.ToolBar({
+                // 简易缩放模式，默认为 false
+                liteStyle: true
+            }));
+        });
+
+        function initPage(SimpleMarker) {
+
+            var infoWindow = new AMap.InfoWindow({ offset: new AMap.Pixel(0, -30) });
+            for (var i = 0, marker; i < lnglats.length; i++) {
+                var marker = new SimpleMarker({
+                    iconStyle: color[i],
+                    position: lnglats[i],
+                    map: map
+                });
+                marker.content = '<div class="tip"><div class="form_title">类别：' + type[i] + '</div><hr class="hr_class"/><div class="form_content">物品：报纸、黄报纸</div><div class="form_content">地址：上海市浦东新区秀浦路2099</div><div class="a_detail"><a href="http://www.baidu.com" target="_blank">详情</a></div></div>';
+                marker.on('click', markerClick);
+                marker.emit('click', { target: marker });
+            }
+            function markerClick(e) {
+                infoWindow.setContent(e.target.content);
+                infoWindow.open(map, e.target.getPosition());
+            }
+            map.setFitView();
+        }
+        //加载组件库
+        AMapUI.loadUI(['overlay/SimpleMarker'], function (SimpleMarker) {
+            initPage(SimpleMarker);
+        });
+    </script>
+</body>
+
+</html>

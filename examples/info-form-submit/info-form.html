@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>表单信息</title>
+    <!-- 禁止请求favicon.ico -->
+    <link rel="icon" href="data:image/ico;base64,aWNv">
+    <link rel="stylesheet" href="./plugin/layui-v2.5.3/css/layui.css" />
+    <link rel="stylesheet" href="./css/form.css" />
+    <link rel="stylesheet" href="./css/multiple-select.min.css" >
+
+    <script src="./plugin/layui-v2.5.3/layui.js"></script>
+    <script src="./plugin/jquery-2.1.0.js"></script>
+    <!-- 触屏操作 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <!-- 图片处理压缩、翻转 -->
+    <script type="text/javascript" src="./plugin/exif.js"></script>
+    <!-- 用来重新编译图片名称，使id整齐，更便于操作 -->
+    <script src="./plugin/md5.js"></script>
+    <!-- 下拉多选框 -->
+    <script src="./plugin/multiple-select.min.js"></script>
+    <style>
+        li {
+            line-height: 32px;
+        }
+
+        .cate_user input {
+            height: 27px;
+            width: 22px;
+        }
+
+        .ms-choice {
+            height: 26px;
+        }
+
+        .ms-drop ul {
+            height: auto;
+        }
+
+        .closeblock {
+            width: 100%;
+            background: #ffffff;
+            margin-bottom: 10px;
+            font-size: 14px;
+            padding-bottom: 12px;
+        }
+
+        .closeblock span {
+            margin-left: 15px;
+        }
+
+        em {
+            color: crimson;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="X-body">
+        <!--中心内容-->
+        <div class="TevaluationMan">
+            <p id="form_save" class="formSave" style="width: 60px;">提交</p>
+            <hr/>
+            <div class="sectionMangment">
+                <div>
+
+                    <!-- 新增 -->
+                    <div class="closeblock clearfix none ">
+                        <input type="hidden" id="resource_market_id" value="">
+                        <ul>
+                            <li class="cate_user">
+                                <span id="category_user" style="margin-right: 15px;"><em>*</em>回收品类：</span>
+
+                                <select id="good_category" name="good_category" multiple="multiple"
+                                    class="multiple-select" style="width: 160px; height: 32px;">
+                                    <!-- <option value="" selected="selected">请选择回收品类</option> -->
+                                    <option value="1">纸类</option>
+                                    <option value="2">金属</option>
+                                    <option value="3">塑料</option>
+                                </select>
+
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <span id="category_user" style="margin-right: 15px;"><em>*</em>图片：</span>
+                                <div class="fileinput fileinput-new " data-provides="fileinput" id="exampleInputUpload2">
+                                    <form class="" id="formdata" method="post" enctype="multipart/form-data">
+                                        <div class="gallery" id="gallery">
+                                            <span id="picture"></span>
+                                            <div class="img-item" style="display: inline-block;" id="first-btn-upload">
+                                                <label for="btn-upload" class="btn-upload" id="btn-upload">点击上传</label>
+                                                <div style="clear: both;"></div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <input id="file" type="file" multiple style="display: none">
+                                    <div class="box">
+                                        <img src="" />
+                                    </div>
+                                    <button class="layui-btn" lay-submit lay-filter="uploadpic" style="display: none"
+                                        id="uploadpic">上传</button>
+                                </div>
+                                <button class="layui-btn" id="up" onclick="upload()" style="display: none"></button>
+                            </li>
+                        </ul>
+                        
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <script src="./js/request.js"></script>
+    <script src="./js/form.js"></script>
+</body>
+
+</html>
